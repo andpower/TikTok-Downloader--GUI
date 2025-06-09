@@ -16,6 +16,19 @@ async function normalizeUrl(link) {
   return link;
 }
 
+function extractVideoId(link) {
+  try {
+    const u = new URL(link);
+    const vid = u.searchParams.get('__vid');
+    if (vid) return vid;
+    const m = u.pathname.match(/\/video\/(\d+)/);
+    if (m) return m[1];
+  } catch (_) {
+    // ignore
+  }
+  return null;
+}
+
 export default {
   async fetch(request) {
     const { searchParams } = new URL(request.url);
@@ -67,8 +80,13 @@ export default {
     }
     try {
       const resolved = await normalizeUrl(url);
+      let queryUrl = resolved;
+      const vid = extractVideoId(resolved);
+      if (vid) {
+        queryUrl = `https://www.tiktok.com/@example/video/${vid}`;
+      }
       const apiUrl =
-        'https://tikwm.com/api/?url=' + encodeURIComponent(resolved);
+        'https://tikwm.com/api/?url=' + encodeURIComponent(queryUrl);
       const apiRes = await fetch(apiUrl);
       if (!apiRes.ok) {
         throw new Error('API request failed');

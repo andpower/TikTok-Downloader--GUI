@@ -54,7 +54,8 @@ compatibility_date = "<YYYY-MM-DD>"
    you want to download.
 
    Short links from `vm.tiktok.com` or `vt.tiktok.com` are resolved
-   automatically, so you can paste those URLs directly.
+   automatically, so you can paste those URLs directly. Direct CDN links that
+   include a `__vid` query parameter are also supported.
 
 Example request:
 
