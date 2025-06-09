@@ -45,9 +45,16 @@ main = "worker.js"
 compatibility_date = "<YYYY-MM-DD>"
 ```
 
-2. Deploy the worker with `npx wrangler deploy`.
-3. Once deployed, call the worker with a `url` query parameter pointing to
-   the TikTok video you want to download.
+2. Deploy the worker with `npx wrangler deploy`. The command output will show
+   the deployed URL, usually in the form
+   `https://<worker-name>.<your-account>.workers.dev`.
+3. Open that URL in your browser and you'll see a small HTML form where you can
+   paste a TikTok link and start the download. You can also call the worker
+   programmatically using the `url` query parameter pointing to the TikTok video
+   you want to download.
+
+   Short links from `vm.tiktok.com` or `vt.tiktok.com` are resolved
+   automatically, so you can paste those URLs directly.
 
 Example request:
 
